@@ -105,3 +105,21 @@ all:
     just open damage-control minimal theme-cycler
     just open agent-chain theme-cycler
     just open pi-pi theme-cycler
+
+# omo extensions (pi-memories stack)
+
+# 17. Hivemind: /memory store|search|list|sync — persistent cross-session learnings
+ext-hivemind:
+    pi -e extensions/hivemind.ts -e extensions/minimal.ts
+
+# 18. CASS: /cass <query> — search all AI agent session histories
+ext-cass:
+    pi -e extensions/cass.ts -e extensions/minimal.ts
+
+# 19. SwarmMail: /mail inbox|send|read|ack — cross-agent message store
+ext-swarmmail:
+    pi -e extensions/swarmmail.ts -e extensions/minimal.ts
+
+# 20. Full OMO stack: memory + session search + swarm mail + system-select
+ext-omo-stack:
+    pi -e extensions/hivemind.ts -e extensions/cass.ts -e extensions/swarmmail.ts -e extensions/system-select.ts -e extensions/minimal.ts

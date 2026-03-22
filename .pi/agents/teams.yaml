@@ -29,3 +29,36 @@ pi-pi:
   - tui-expert
   - prompt-expert
   - agent-expert
+
+# OMO-ported teams
+omo:
+  - oracle
+  - librarian
+  - explore
+  - critic
+
+swarm:
+  - swarm-planner
+  - swarm-worker
+  - swarm-researcher
+
+review:
+  - critic
+  - code-reviewer
+  - omo-reviewer
+
+architect-team:
+  - oracle
+  - architect
+  - metis
+
+implementation:
+  - sisyphus
+  - prometheus
+  - executor
+
+research-plan-build:
+  - librarian
+  - omo-planner
+  - prometheus
+  - critic

@@ -47,3 +47,58 @@ full-review:
       prompt: "Implement this plan:\n\n$INPUT"
     - agent: reviewer
       prompt: "Review this implementation:\n\n$INPUT"
+
+# OMO-ported chains
+research-plan-build:
+  description: "Research external docs, then plan and build — for tasks requiring library knowledge"
+  steps:
+    - agent: librarian
+      prompt: "Research external documentation and best practices for: $INPUT\n\nReturn key findings, relevant code examples, and any gotchas."
+    - agent: omo-planner
+      prompt: "Based on this research, create an implementation plan for: $ORIGINAL\n\nResearch findings:\n$INPUT"
+    - agent: prometheus
+      prompt: "Implement the following plan:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+    - agent: critic
+      prompt: "Verify this implementation is correct and complete:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+
+ambiguity-check-plan-build:
+  description: "Check for ambiguities, clarify, then plan and build"
+  steps:
+    - agent: metis
+      prompt: "Analyze this request for hidden complexity and ambiguities: $INPUT\n\nReturn a structured analysis with any blocking questions."
+    - agent: omo-planner
+      prompt: "Create an implementation plan for: $ORIGINAL\n\nAmbiguity analysis to consider:\n$INPUT"
+    - agent: prometheus
+      prompt: "Implement the following plan:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+
+plan-review-build:
+  description: "Plan, get plan reviewed for gaps, then build"
+  steps:
+    - agent: omo-planner
+      prompt: "Create a detailed implementation plan for: $INPUT"
+    - agent: momus
+      prompt: "Review this plan for gaps, ambiguities, and missing acceptance criteria:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+    - agent: prometheus
+      prompt: "Implement the following revised plan. Address all issues identified in the review:\n\nOriginal plan:\n$INPUT\n\nOriginal request: $ORIGINAL"
+    - agent: critic
+      prompt: "Verify this implementation:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+
+oracle-then-build:
+  description: "Consult oracle for architecture guidance, then build"
+  steps:
+    - agent: oracle
+      prompt: "Analyze and advise on the best architectural approach for: $INPUT\n\nProvide a clear recommendation with rationale."
+    - agent: prometheus
+      prompt: "Implement using the following architectural guidance:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+    - agent: code-reviewer
+      prompt: "Review this implementation for plan alignment and code quality:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+
+swarm-full:
+  description: "Swarm planning + worker execution + quality gate"
+  steps:
+    - agent: swarm-planner
+      prompt: "Decompose this task into parallel subtasks for swarm execution: $INPUT\n\nReturn a CellTree JSON with no file overlap between subtasks."
+    - agent: swarm-researcher
+      prompt: "Research context needed for this task: $ORIGINAL\n\nSubtask plan:\n$INPUT\n\nReturn structured findings for worker agents."
+    - agent: critic
+      prompt: "Review the completed swarm work against original requirements:\n\n$INPUT\n\nOriginal request: $ORIGINAL"

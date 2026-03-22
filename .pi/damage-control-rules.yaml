@@ -277,3 +277,11 @@ noDeletePaths:
   - docker-compose.yml
   - "docker-compose.*.yml"
   - .dockerignore
+
+  # Pi memory sync — never delete these
+  - "~/Documents/GitHub/pi-memories/"
+  - "~/.pi/agent/models.json"
+  - "~/.pi/agent/AGENTS.md"
+  - ".pi/skills/"
+  - ".pi/prompts/"
+  - ".pi/damage-control-rules.yaml"
