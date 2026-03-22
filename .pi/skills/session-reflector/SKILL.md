@@ -1,3 +1,8 @@
+---
+name: session-reflector
+description: Use at the end of a pi work session to persist learnings to hivemind memory, write a session summary, and sync pi-memories to git. Triggers - end session, reflect, store learnings, session summary.
+---
+
 # Session Reflector Skill
 
 Use at the END of every pi session to persist learnings and keep memory indexed.
