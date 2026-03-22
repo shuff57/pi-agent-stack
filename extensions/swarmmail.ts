@@ -76,8 +76,7 @@ function formatMessage(m: MailMessage): string {
 }
 
 export default function (pi: ExtensionAPI) {
-	pi.registerCommand({
-		name: "mail",
+	pi.registerCommand("mail", {
 		description: "SwarmMail: /mail inbox | send <to> <message> | read <id> | ack <id> | clear",
 		handler: async (args: string, ctx) => {
 			const parts = args.trim().split(/\s+/);

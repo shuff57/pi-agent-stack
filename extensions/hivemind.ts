@@ -85,8 +85,7 @@ function formatMemory(m: Memory, idx?: number): string {
 }
 
 export default function (pi: ExtensionAPI) {
-	pi.registerCommand({
-		name: "memory",
+	pi.registerCommand("memory", {
 		description:
 			"Persistent memory: /memory store <text> | search <query> | list | sync",
 		handler: async (args: string, ctx) => {

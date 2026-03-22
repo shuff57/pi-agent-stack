@@ -176,8 +176,7 @@ function searchSessions(
 }
 
 export default function (pi: ExtensionAPI) {
-	pi.registerCommand({
-		name: "cass",
+	pi.registerCommand("cass", {
 		description: "Search session histories: /cass <query> [--agent opencode|pi|cursor] [--recent N]",
 		handler: async (args: string, _ctx) => {
 			if (!args.trim()) {
