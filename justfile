@@ -1,4 +1,5 @@
 set dotenv-load := true
+set windows-shell := ["cmd.exe", "/c"]
 
 default:
     @just --list
