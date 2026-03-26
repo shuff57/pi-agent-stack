@@ -36,6 +36,7 @@ export const THEME_MAP: Record<string, string> = {
 	"tilldone":           "everforest",       // task-focused calm
 	"tool-counter":       "synthwave",        // techy metrics
 	"tool-counter-widget":"synthwave",        // same family
+	"command-deck":       "midnight-ocean",   // clean cockpit HUD
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────

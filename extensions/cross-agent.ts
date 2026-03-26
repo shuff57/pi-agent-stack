@@ -170,7 +170,11 @@ export default function (pi: ExtensionAPI) {
 		}
 	}
 
-	// Also scan .pi/agents/ (pi-vs-cc pattern)
+	// Also scan .pi/agents/ — global first, local overrides by name
+	const globalPiAgents = scanAgents(join(home, ".pi", "agent", "agents"));
+	if (globalPiAgents.length) {
+		groups.push({ source: "~/.pi/agents", commands: [], skills: [], agents: globalPiAgents });
+	}
 	const localAgents = scanAgents(join(cwd, ".pi", "agents"));
 	if (localAgents.length) {
 		groups.push({ source: ".pi/agents", commands: [], skills: [], agents: localAgents });

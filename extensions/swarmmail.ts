@@ -2,7 +2,7 @@
  * SwarmMail — Cross-agent message store for swarm coordination
  *
  * Provides a simple JSONL-backed message bus for swarm agents to communicate.
- * Messages are stored in ~/Documents/GitHub/pi-memories/swarmmail/
+ * Messages are stored in ~/pi-memories/swarmmail/
  *
  * Commands:
  *   /mail send <to> <message>    — Send a message to an agent/coordinator
@@ -25,7 +25,7 @@ import {
 import { join } from "node:path";
 import { homedir } from "node:os";
 
-const MAIL_DIR = join(homedir(), "Documents", "GitHub", "pi-memories", "swarmmail");
+const MAIL_DIR = join(homedir(), "pi-memories", "swarmmail");
 const MAIL_FILE = join(MAIL_DIR, "messages.jsonl");
 
 interface MailMessage {

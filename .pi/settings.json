@@ -1,5 +1,5 @@
 {
-  "theme": "synthwave",
+  "theme": "midnight-ocean",
   "prompts": [
     "../.claude/commands"
   ]

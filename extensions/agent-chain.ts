@@ -27,6 +27,7 @@ import { Text, truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 import { spawn } from "child_process";
 import { readFileSync, existsSync, readdirSync, mkdirSync, unlinkSync } from "fs";
 import { join, resolve } from "path";
+import { homedir } from "os";
 import { applyExtensionDefaults } from "./themeMap.ts";
 
 // ── Types ────────────────────────────────────────
@@ -161,6 +162,7 @@ function parseAgentFile(filePath: string): AgentDef | null {
 
 function scanAgentDirs(cwd: string): Map<string, AgentDef> {
 	const dirs = [
+		join(homedir(), ".pi", "agent", "agents"),
 		join(cwd, "agents"),
 		join(cwd, ".claude", "agents"),
 		join(cwd, ".pi", "agents"),
@@ -213,7 +215,9 @@ export default function (pi: ExtensionAPI) {
 			agentSessions.set(key, existsSync(sessionFile) ? sessionFile : null);
 		}
 
-		const chainPath = join(cwd, ".pi", "agents", "agent-chain.yaml");
+		const localChainPath = join(cwd, ".pi", "agents", "agent-chain.yaml");
+		const globalChainPath = join(homedir(), ".pi", "agent", "agents", "agent-chain.yaml");
+		const chainPath = existsSync(localChainPath) ? localChainPath : globalChainPath;
 		if (existsSync(chainPath)) {
 			try {
 				chains = parseChainYaml(readFileSync(chainPath, "utf-8"));
@@ -336,7 +340,7 @@ export default function (pi: ExtensionAPI) {
 	): Promise<{ output: string; exitCode: number; elapsed: number }> {
 		const model = ctx.model
 			? `${ctx.model.provider}/${ctx.model.id}`
-			: "openrouter/google/gemini-3-flash-preview";
+			: "anthropic/claude-sonnet-4-6";
 
 		const agentKey = agentDef.name.toLowerCase().replace(/\s+/g, "-");
 		const agentSessionFile = join(sessionDir, `chain-${agentKey}.json`);

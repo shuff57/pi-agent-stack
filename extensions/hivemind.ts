@@ -2,7 +2,7 @@
  * Hivemind — Persistent cross-session memory for pi agent
  *
  * Provides /memory commands to store, search, and list learnings.
- * Storage: ~/Documents/GitHub/pi-memories/hivemind/memories.jsonl
+ * Storage: ~/pi-memories/hivemind/memories.jsonl
  * Search: Semantic vector search via Ollama embeddings, falls back to substring match
  *
  * Auto-save: Implicitly captures learnings from:
@@ -34,7 +34,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import { execSync } from "node:child_process";
 
-const MEMORIES_DIR = join(homedir(), "Documents", "GitHub", "pi-memories", "hivemind");
+const MEMORIES_DIR = join(homedir(), "pi-memories", "hivemind");
 const MEMORIES_FILE = join(MEMORIES_DIR, "memories.jsonl");
 const MEMORY_INDEX = join(MEMORIES_DIR, "MEMORY.md");
 const TOPICS_DIR = join(MEMORIES_DIR, "topics");
@@ -654,9 +654,9 @@ export default function (pi: ExtensionAPI) {
 			}
 
 			if (subcommand === "sync") {
-				const repoDir = join(homedir(), "Documents", "GitHub", "pi-memories");
+				const repoDir = join(homedir(), "pi-memories");
 				if (!existsSync(join(repoDir, ".git"))) {
-					return "⚠ pi-memories repo not found. Clone it to ~/Documents/GitHub/pi-memories first.";
+					return "⚠ pi-memories repo not found. Clone it to ~/pi-memories first.";
 				}
 				try {
 					const date = new Date().toISOString().split("T")[0];

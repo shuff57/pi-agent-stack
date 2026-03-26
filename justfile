@@ -124,3 +124,19 @@ ext-swarmmail:
 # 20. Full OMO stack: memory + session search + swarm mail + system-select
 ext-omo-stack:
     pi -e extensions/hivemind.ts -e extensions/cass.ts -e extensions/swarmmail.ts -e extensions/system-select.ts -e extensions/minimal.ts
+
+# 21. Ollama provider: /ollama status|models|pull|use
+ext-ollama:
+    pi -e extensions/ollama-provider.ts -e extensions/minimal.ts
+
+# 22. Full agent stack: hivemind + curator + ollama + cass + swarmmail + system-select
+agent-stack:
+    pi -e extensions/hivemind.ts -e extensions/hivemind-curator.ts -e extensions/ollama-provider.ts -e extensions/cass.ts -e extensions/swarmmail.ts -e extensions/system-select.ts -e extensions/minimal.ts
+
+# 23. Command Deck: clean HUD — Ctrl+T planner/orchestrator toggle, Ctrl+M model switch, context bar
+ext-command-deck:
+    pi -e extensions/command-deck.ts -e extensions/theme-cycler.ts
+
+# agent alias target: command deck + memory stack
+agent:
+    pi -e extensions/command-deck.ts -e extensions/hivemind.ts -e extensions/cass.ts -e extensions/swarmmail.ts

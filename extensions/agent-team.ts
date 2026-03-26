@@ -23,6 +23,7 @@ import { Text, type AutocompleteItem, truncateToWidth, visibleWidth } from "@mar
 import { spawn } from "child_process";
 import { readdirSync, readFileSync, existsSync, mkdirSync, unlinkSync } from "fs";
 import { join, resolve } from "path";
+import { homedir } from "os";
 import { applyExtensionDefaults } from "./themeMap.ts";
 
 // ── Types ────────────────────────────────────────
@@ -106,6 +107,7 @@ function parseAgentFile(filePath: string): AgentDef | null {
 
 function scanAgentDirs(cwd: string): AgentDef[] {
 	const dirs = [
+		join(homedir(), ".pi", "agent", "agents"),
 		join(cwd, "agents"),
 		join(cwd, ".claude", "agents"),
 		join(cwd, ".pi", "agents"),
@@ -154,8 +156,10 @@ export default function (pi: ExtensionAPI) {
 		// Load all agent definitions
 		allAgentDefs = scanAgentDirs(cwd);
 
-		// Load teams from .pi/agents/teams.yaml
-		const teamsPath = join(cwd, ".pi", "agents", "teams.yaml");
+		// Load teams from .pi/agents/teams.yaml (local first, then global fallback)
+		const localTeamsPath = join(cwd, ".pi", "agents", "teams.yaml");
+		const globalTeamsPath = join(homedir(), ".pi", "agent", "agents", "teams.yaml");
+		const teamsPath = existsSync(localTeamsPath) ? localTeamsPath : globalTeamsPath;
 		if (existsSync(teamsPath)) {
 			try {
 				teams = parseTeamsYaml(readFileSync(teamsPath, "utf-8"));
@@ -337,7 +341,7 @@ export default function (pi: ExtensionAPI) {
 
 		const model = ctx.model
 			? `${ctx.model.provider}/${ctx.model.id}`
-			: "openrouter/google/gemini-3-flash-preview";
+			: "anthropic/claude-sonnet-4-6";
 
 		// Session file for this agent
 		const agentKey = state.def.name.toLowerCase().replace(/\s+/g, "-");

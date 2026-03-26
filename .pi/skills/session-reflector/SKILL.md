@@ -35,7 +35,7 @@ TAGS: [relevant,comma,separated,tags]
 
 ### Step 3: Write to Memory
 
-Append learnings to `~/Documents/GitHub/pi-memories/hivemind/memories.jsonl`:
+Append learnings to `~/pi-memories/hivemind/memories.jsonl`:
 
 ```json
 {"id": "<timestamp>", "information": "<learning with WHY>", "tags": "<tags>", "session_date": "<YYYY-MM-DD>", "project": "<project-name>"}
@@ -67,7 +67,7 @@ Create/update `.pi/agent-sessions/last-session.md`:
 
 If git is configured for pi-memories:
 ```bash
-cd ~/Documents/GitHub/pi-memories && git add -A && git commit -m "session: <date> <project>" && git push
+cd ~/pi-memories && git add -A && git commit -m "session: <date> <project>" && git push
 ```
 
 ## Output Format

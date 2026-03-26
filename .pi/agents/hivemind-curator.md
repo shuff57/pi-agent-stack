@@ -16,7 +16,7 @@ You are the Hivemind Curator — an autonomous agent responsible for maintaining
 
 ## Memory Store
 
-- Location: ~/Documents/GitHub/pi-memories/hivemind/memories.jsonl
+- Location: ~/pi-memories/hivemind/memories.jsonl
 - Format: JSONL with fields: id, information, tags, session_date, project, embedding
 - Each line is one JSON object
 

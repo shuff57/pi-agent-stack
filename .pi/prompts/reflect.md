@@ -6,7 +6,7 @@ You are running the session-reflector skill.
 
 1. Review the current session's work
 2. Identify 2-5 key learnings (non-obvious things discovered)
-3. Append each learning to `~/Documents/GitHub/pi-memories/hivemind/memories.jsonl`
+3. Append each learning to `~/pi-memories/hivemind/memories.jsonl`
 4. Write a session summary to `.pi/agent-sessions/last-session.md`
 5. Report what was stored
 

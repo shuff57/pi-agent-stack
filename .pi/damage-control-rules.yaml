@@ -279,7 +279,7 @@ noDeletePaths:
   - .dockerignore
 
   # Pi memory sync — never delete these
-  - "~/Documents/GitHub/pi-memories/"
+  - "~/pi-memories/"
   - "~/.pi/agent/models.json"
   - "~/.pi/agent/AGENTS.md"
   - ".pi/skills/"

@@ -22,6 +22,7 @@ frontend:
   - bowser
 
 pi-pi:
+  - pi-orchestrator
   - ext-expert
   - theme-expert
   - skill-expert
@@ -29,13 +30,8 @@ pi-pi:
   - tui-expert
   - prompt-expert
   - agent-expert
-
-# OMO-ported teams
-omo:
-  - oracle
-  - librarian
-  - explore
-  - critic
+  - cli-expert
+  - keybinding-expert
 
 swarm:
   - swarm-planner
@@ -43,22 +39,22 @@ swarm:
   - swarm-researcher
 
 review:
-  - critic
-  - code-reviewer
-  - omo-reviewer
+  - reviewer
+  - plan-reviewer
 
-architect-team:
-  - oracle
-  - architect
-  - metis
-
-implementation:
-  - sisyphus
-  - prometheus
-  - executor
+advisory:
+  - advisor
+  - scope-check
+  - plan-reviewer
 
 research-plan-build:
   - librarian
-  - omo-planner
-  - prometheus
-  - critic
+  - planner
+  - builder
+  - reviewer
+
+planning:
+  - scout
+  - planner
+  - plan-draft
+  - plan-reviewer

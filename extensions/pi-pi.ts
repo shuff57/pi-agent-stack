@@ -21,6 +21,7 @@ import { Text, truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 import { spawn } from "child_process";
 import { readdirSync, readFileSync, existsSync, mkdirSync } from "fs";
 import { join, resolve } from "path";
+import { homedir } from "os";
 import { applyExtensionDefaults } from "./themeMap.ts";
 
 // ── Types ────────────────────────────────────────
@@ -103,20 +104,23 @@ export default function (pi: ExtensionAPI) {
 
 	function loadExperts(cwd: string) {
 		// Pi Pi experts live in their own dedicated directory
-		const piPiDir = join(cwd, ".pi", "agents", "pi-pi");
+		// Global agents load first, local agents override by name
+		const globalPiPiDir = join(homedir(), ".pi", "agent", "agents", "pi-pi");
+		const localPiPiDir = join(cwd, ".pi", "agents", "pi-pi");
 
 		experts.clear();
 
-		if (!existsSync(piPiDir)) return;
-		try {
-			for (const file of readdirSync(piPiDir)) {
-				if (!file.endsWith(".md")) continue;
-				if (file === "pi-orchestrator.md") continue;
-				const fullPath = resolve(piPiDir, file);
-				const def = parseAgentFile(fullPath);
-				if (def) {
-					const key = def.name.toLowerCase();
-					if (!experts.has(key)) {
+		for (const piPiDir of [globalPiPiDir, localPiPiDir]) {
+			if (!existsSync(piPiDir)) continue;
+			try {
+				for (const file of readdirSync(piPiDir)) {
+					if (!file.endsWith(".md")) continue;
+					if (file === "pi-orchestrator.md") continue;
+					const fullPath = resolve(piPiDir, file);
+					const def = parseAgentFile(fullPath);
+					if (def) {
+						const key = def.name.toLowerCase();
+						// Local overrides global (same key replaces)
 						experts.set(key, {
 							def,
 							status: "idle",
@@ -127,8 +131,8 @@ export default function (pi: ExtensionAPI) {
 						});
 					}
 				}
-			}
-		} catch {}
+			} catch {}
+		}
 	}
 
 	// ── Grid Rendering ───────────────────────────
@@ -274,7 +278,7 @@ export default function (pi: ExtensionAPI) {
 
 		const model = ctx.model
 			? `${ctx.model.provider}/${ctx.model.id}`
-			: "openrouter/google/gemini-3-flash-preview";
+			: "anthropic/claude-sonnet-4-6";
 
 		const args = [
 			"--mode", "json",
@@ -561,19 +565,21 @@ Ask specific questions about what you need to BUILD. Each expert will return doc
 
 		const expertNames = Array.from(experts.values()).map(s => displayName(s.def.name)).join(", ");
 
-		const orchestratorPath = join(_ctx.cwd, ".pi", "agents", "pi-pi", "pi-orchestrator.md");
+		const localOrchestratorPath = join(_ctx.cwd, ".pi", "agents", "pi-pi", "pi-orchestrator.md");
+		const globalOrchestratorPath = join(homedir(), ".pi", "agent", "agents", "pi-pi", "pi-orchestrator.md");
+		const orchestratorPath = existsSync(localOrchestratorPath) ? localOrchestratorPath : globalOrchestratorPath;
 		let systemPrompt = "";
 		try {
 			const raw = readFileSync(orchestratorPath, "utf-8");
 			const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
 			const template = match ? match[2].trim() : raw;
-			
+
 			systemPrompt = template
 				.replace("{{EXPERT_COUNT}}", experts.size.toString())
 				.replace("{{EXPERT_NAMES}}", expertNames)
 				.replace("{{EXPERT_CATALOG}}", expertCatalog);
 		} catch (err) {
-			systemPrompt = "Error: Could not load pi-orchestrator.md. Make sure it exists in .pi/agents/pi-pi/.";
+			systemPrompt = "Error: Could not load pi-orchestrator.md. Make sure it exists in .pi/agents/pi-pi/ or ~/.pi/agent/agents/pi-pi/.";
 		}
 
 		return { systemPrompt };
