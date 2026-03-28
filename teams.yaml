@@ -1,0 +1,67 @@
+full:
+  - scout
+  - planner
+  - builder
+  - reviewer
+  - documenter
+  - red-team
+
+plan-build:
+  - planner
+  - builder
+  - reviewer
+
+info:
+  - scout
+  - documenter
+  - reviewer
+
+frontend:
+  - planner
+  - builder
+  - bowser
+
+pi-pi:
+  - pi-orchestrator
+  - ext-expert
+  - theme-expert
+  - skill-expert
+  - config-expert
+  - tui-expert
+  - prompt-expert
+  - agent-expert
+  - cli-expert
+  - keybinding-expert
+
+# OMO-ported teams
+omo:
+  - oracle
+  - librarian
+  - explore
+  - critic
+
+swarm:
+  - swarm-planner
+  - swarm-worker
+  - swarm-researcher
+
+review:
+  - critic
+  - code-reviewer
+  - omo-reviewer
+
+architect-team:
+  - oracle
+  - architect
+  - metis
+
+implementation:
+  - sisyphus
+  - prometheus
+  - executor
+
+research-plan-build:
+  - librarian
+  - omo-planner
+  - prometheus
+  - critic

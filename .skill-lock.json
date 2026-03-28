@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "skills": {
+    "playwriter": {
+      "source": "remorses/playwriter",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/remorses/playwriter.git",
+      "skillPath": "skills/playwriter/SKILL.md",
+      "skillFolderHash": "e6cd918f821d35a79dca0277d197df667a240753",
+      "installedAt": "2026-03-26T18:33:09.560Z",
+      "updatedAt": "2026-03-26T18:33:09.560Z"
+    },
+    "github-triage": {
+      "source": "code-yeongyu/oh-my-openagent",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/code-yeongyu/oh-my-openagent.git",
+      "skillPath": ".opencode/skills/github-triage/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-26T18:41:03.431Z",
+      "updatedAt": "2026-03-26T18:41:03.431Z"
+    },
+    "pre-publish-review": {
+      "source": "code-yeongyu/oh-my-openagent",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/code-yeongyu/oh-my-openagent.git",
+      "skillPath": ".opencode/skills/pre-publish-review/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-26T18:41:04.038Z",
+      "updatedAt": "2026-03-26T18:41:04.038Z"
+    },
+    "work-with-pr": {
+      "source": "code-yeongyu/oh-my-openagent",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/code-yeongyu/oh-my-openagent.git",
+      "skillPath": ".opencode/skills/work-with-pr/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-26T18:41:04.753Z",
+      "updatedAt": "2026-03-26T18:41:04.753Z"
+    }
+  },
+  "dismissed": {}
+}
